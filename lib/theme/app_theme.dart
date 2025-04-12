@@ -34,13 +34,9 @@ class AppTheme {
       surface: _lightSurface,
       onSurface: _lightOnSurface,
     ),
-    // Global font
     fontFamily: 'Manrope',
-    // Custom text styling
     textTheme: _textTheme(_lightOnSurface, _lightOnSecondary),
-    // Custom page transitions for consistency across platforms
     pageTransitionsTheme: _customTransitions,
-    // Elevated button styling
     elevatedButtonTheme: _buttonTheme(_lightPrimary),
   );
 
@@ -63,7 +59,7 @@ class AppTheme {
     elevatedButtonTheme: _buttonTheme(_darkPrimary),
   );
 
-  /// Custom TextTheme for both light and dark themes
+  /// Custom TextTheme for both light and dark themes.
   static TextTheme _textTheme(Color primary, Color secondary) {
     return TextTheme(
       displayLarge: TextStyle(
@@ -94,7 +90,7 @@ class AppTheme {
     );
   }
 
-  /// Custom PageTransitionsTheme that applies smooth fade, slide, and scale animations
+  /// Custom PageTransitionsTheme for smooth fade, slide, and scale animations.
   static PageTransitionsTheme get _customTransitions {
     return PageTransitionsTheme(
       builders: {
@@ -104,7 +100,7 @@ class AppTheme {
     );
   }
 
-  /// ElevatedButton theme that matches the overall design
+  /// Elevated button styling
   static ElevatedButtonThemeData _buttonTheme(Color primaryColor) {
     return ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -126,12 +122,12 @@ class AppTheme {
 class _CustomPageTransitionBuilder extends PageTransitionsBuilder {
   @override
   Widget buildTransitions<T>(
-      PageRoute<T> route,
-      BuildContext context,
-      Animation<double> animation,
-      Animation<double> secondaryAnimation,
-      Widget child,
-      ) {
+    PageRoute<T> route,
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
     return FadeTransition(
       opacity: animation,
       child: SlideTransition(

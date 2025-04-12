@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'providers/auth_provider.dart';
 import 'screens/dashboard_screen.dart';
 import 'screens/login_screen.dart';
-import 'theme/app_theme.dart'; // Assuming you have the theme file created as discussed
+import 'theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,17 +18,18 @@ class StreaklyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Using Provider to expose authentication state throughout the app.
-    return ChangeNotifierProvider(
+    return ChangeNotifierProvider<AuthProvider>(
       create: (_) => AuthProvider(),
       child: Consumer<AuthProvider>(
         builder: (context, authProvider, _) {
           return MaterialApp(
             title: 'Streakly',
+            debugShowCheckedModeBanner: false,
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
-            home: authProvider.isLoggedIn ? const DashboardScreen() : const LoginScreen(),
-            debugShowCheckedModeBanner: false,
+            home: authProvider.isLoggedIn
+                ? const DashboardScreen()
+                : const LoginScreen(),
           );
         },
       ),
