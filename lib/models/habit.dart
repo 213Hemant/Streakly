@@ -1,10 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart'; // Import to use Timestamp
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Habit {
   final String id;
   final String name;
-  final String frequency; // e.g., 'daily', 'weekdays'
+  final String frequency; // e.g., "daily", "weekdays", "weekends"
   final DateTime createdAt;
+  final List<DateTime> checkIns;
   final int currentStreak;
   final int bestStreak;
 
@@ -13,44 +14,59 @@ class Habit {
     required this.name,
     required this.frequency,
     required this.createdAt,
+    this.checkIns = const [],
     this.currentStreak = 0,
     this.bestStreak = 0,
   });
 
-  // Converts Firestore document snapshot to Habit model.
+  // Deserialize Firestore document into a Habit.
   factory Habit.fromMap(Map<String, dynamic> data, String documentId) {
-    // Check if 'createdAt' is a Timestamp, and convert it to DateTime
-    var createdAtTimestamp = data['createdAt'];
-    DateTime createdAtDateTime;
-
-    // If it's a Timestamp, convert to DateTime
-    if (createdAtTimestamp is Timestamp) {
-      createdAtDateTime = createdAtTimestamp.toDate();
-    } else {
-      // If it's already DateTime (maybe from local data), use it directly
-      createdAtDateTime = createdAtTimestamp is DateTime
-          ? createdAtTimestamp
-          : DateTime.now(); // Fallback to current time if no valid date found
-    }
-
     return Habit(
       id: documentId,
       name: data['name'] as String,
       frequency: data['frequency'] as String,
-      createdAt: createdAtDateTime,
+      createdAt: (data['createdAt'] as Timestamp).toDate(),
       currentStreak: data['currentStreak'] ?? 0,
       bestStreak: data['bestStreak'] ?? 0,
+      checkIns: data['checkIns'] != null
+          ? (data['checkIns'] as List<dynamic>)
+              .map((e) => DateTime.parse(e as String))
+              .toList()
+          : [],
     );
   }
 
-  // Converts Habit model to Map for Firestore saving.
+  // Serialize Habit object for Firestore.
   Map<String, dynamic> toMap() {
     return {
       'name': name,
       'frequency': frequency,
-      'createdAt': createdAt, // Firestore will handle DateTime as Timestamp
+      'createdAt': createdAt,
       'currentStreak': currentStreak,
       'bestStreak': bestStreak,
+      // Save checkIns as list of ISO8601 strings.
+      'checkIns': checkIns.map((date) => date.toIso8601String()).toList(),
     };
+  }
+
+  // Create a copy with updated values.
+  Habit copyWith({
+    String? id,
+    String? name,
+    String? frequency,
+    DateTime? createdAt,
+    List<DateTime>? checkIns,
+    int? currentStreak,
+    int? bestStreak,
+  }) {
+    return Habit(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      frequency: frequency ?? this.frequency,
+      createdAt: createdAt ?? this.createdAt,
+      checkIns: checkIns ?? this.checkIns,
+      currentStreak: currentStreak ?? this.currentStreak,
+      bestStreak: bestStreak ?? this.bestStreak,
+    );
   }
 }

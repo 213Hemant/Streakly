@@ -1,16 +1,47 @@
-# app_streakly
+# 📱 Streakly –  Habit Tracker App
 
-A new Flutter project.
+**Tagline:** _Stay consistent. Keep the streak alive._
 
-## Getting Started
+Streakly is a beautifully designed habit tracker built with Flutter and powered by Firebase. It helps you create and maintain healthy habits with daily check-ins and visual streak tracking.
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## 🚀 Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+✅ **User Authentication**  
+- Sign up / Log in with email using Firebase Auth  
+- Auth state is persisted securely  
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+✅ **Create Habits**  
+- Add custom habits (e.g. "Workout", "Read", "Drink Water")  
+- Choose frequency: `daily`, `weekdays`, or `weekends`
+
+✅ **Daily Check-Ins**  
+- Tap to mark habits as **done**  
+- Streak auto-increments based on selected frequency  
+- Best streak is tracked
+
+✅ **Streak Visualization**  
+- View current and best streak for each habit  
+- Motivates consistency and progress
+
+✅ **Dashboard Overview**  
+- List of today's habits  
+- View pending vs completed at a glance  
+- Light & dark mode support with modern UI
+
+✅ **Edit & Delete Habits**  
+- Remove unwanted habits  
+- Reset today’s check-in if mistakenly marked
+
+---
+
+## 🧠 Tech Stack
+
+- **Flutter** (Frontend)
+- **Firebase Auth** (Authentication)
+- **Cloud Firestore** (Real-time habit storage)
+- **Provider** (State management)
+- **Manrope Font** (Modern, clean typography)
+
+---

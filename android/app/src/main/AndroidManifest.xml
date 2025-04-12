@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">  <!-- This should be your app's package name -->
 
     <application
-        android:label="app_streakly"
+        android:label="Streakly"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

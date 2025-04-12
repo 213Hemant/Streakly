@@ -8,8 +8,7 @@ class AuthProvider with ChangeNotifier {
   User? _user;
 
   AuthProvider() {
-    // Listen to authentication state changes.
-    _authService.authStateChanges.listen((user) {
+    _authService.authStateChanges.listen((User? user) {
       _user = user;
       notifyListeners();
     });
@@ -18,7 +17,6 @@ class AuthProvider with ChangeNotifier {
   User? get user => _user;
   bool get isLoggedIn => _user != null;
 
-  // Convenience methods for signing in/up and out.
   Future<void> signInWithEmail(String email, String password) async {
     await _authService.signInWithEmail(email, password);
   }
